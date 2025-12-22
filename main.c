@@ -7,6 +7,7 @@ int main(int argc, char **argv)
 	ssize_t nread;
 	int line_count = 0, pid;
 
+	(void)argc;
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
