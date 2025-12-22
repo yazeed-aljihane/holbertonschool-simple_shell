@@ -1,8 +1,14 @@
 #include "shell.h"
 
+/**
+ * main - Simple Shell 0.1 (gnu89 compatible)
+ * @argc: Argument count
+ * @argv: Argument vector
+ * Return: 0 on success
+ */
 int main(int argc, char **argv)
 {
-	char *buffer = NULL, *storge[100];
+	char *buffer = NULL, *token, *args[2];
 	size_t len = 0;
 	ssize_t nread;
 	int line_count = 0, pid;
@@ -17,32 +23,24 @@ int main(int argc, char **argv)
 			break;
 		if (buffer[nread - 1] == '\n')
 			buffer[nread - 1] = '\0';
-		if (buffer[0] == '\0')
+		token = strtok(buffer, " \t\r\n\a");
+		if (token == NULL)
 			continue;
 		line_count++;
-		storge[0] = buffer;
-		storge[1] = NULL;
-		if (access(buffer, X_OK) != -1)
+		if (access(token, X_OK) == 0)
 		{
 			pid = fork();
-			if (pid == -1)
-			{
-				perror("Error:");
-				return (-1);
-			}
-			if (pid >= 1)
-				wait(NULL);
 			if (pid == 0)
 			{
-				if (execve(buffer, storge, environ) == -1)
-				{
-					fprintf(stderr, "%s: %d: %s: not found\n", argv[0], line_count, buffer);
+				args[0] = token;
+				args[1] = NULL;
+				if (execve(token, args, environ) == -1)
 					exit(EXIT_FAILURE);
-				}
 			}
+			wait(NULL);
 		}
 		else
-			fprintf(stderr, "%s: No such file or directory\n", argv[0]);
+			fprintf(stderr, "%s: %d: %s: not found\n", argv[0], line_count, token);
 	}
 	free(buffer);
 	return (0);
