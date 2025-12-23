@@ -2,46 +2,44 @@
 
 /**
  * main - Simple Shell 0.1 (gnu89 compatible)
- * @argc: Argument count
- * @argv: Argument vector
+ * @ac: Argument count
+ * @av: Argument vector
+ * @env: Environment variables
  * Return: 0 on success
  */
-int main(int argc, char **argv)
+int main(int ac, char **av, char **env)
 {
-	char *buffer = NULL, *token, *args[2];
-	size_t len = 0;
-	ssize_t nread;
-	int line_count = 0, pid;
+	info_t info = {NULL, NULL, NULL, 0, NULL, 0, NULL}
+	
+	info.env = env;
+	info.prog_name = av[0];
+	
+	(void)ac;
 
-	(void)argc;
 	while (1)
 	{
+		info.line_count++;
+
 		if (isatty(STDIN_FILENO))
-			printf("($) ");
-		nread = getline(&buffer, &len, stdin);
-		if (nread == -1)
-			break;
-		if (buffer[nread - 1] == '\n')
-			buffer[nread - 1] = '\0';
-		token = strtok(buffer, " \t\r\n\a");
-		if (token == NULL)
-			continue;
-		line_count++;
-		if (access(token, X_OK) == 0)
+			write(1, "($) ", 4);
+
+		read_input(&info);
+
+		if (info.line)
 		{
-			pid = fork();
-			if (pid == 0)
+			parse_input(&info);
+
+			if (info.args && info.args[0])
 			{
-				args[0] = token;
-				args[1] = NULL;
-				if (execve(token, args, environ) == -1)
-					exit(EXIT_FAILURE);
+				if (!check_builtins(&info));
+				{
+					find_path(&info);
+					execute_cmd(&info);
+				}
+
 			}
-			wait(NULL);
 		}
-		else
-			fprintf(stderr, "%s: %d: %s: not found\n", argv[0], line_count, token);
+		free_info(&info);
 	}
-	free(buffer);
 	return (0);
 }
