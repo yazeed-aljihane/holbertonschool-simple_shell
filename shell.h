@@ -17,7 +17,7 @@ typedef struct shell_info
 	char **env;
 } info_t;
 
-void read_input(info_t *info);
+ssize_t read_input(info_t *info);
 void parse_input(info_t *info);
 int find_path(info_t *info);
 void execute_cmd(info_t *info);
