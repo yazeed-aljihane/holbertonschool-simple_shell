@@ -18,7 +18,7 @@ int shell_exit(info_t *info)
 		{
 			if (info->args[1][i] < '0' || info->args[1][i] > '9')
 			{
-				fprintf(stderr,"%s: %d: %s: exit: numeric argument required\n", info->prog_name, info->line_count, info->args[1]);
+				fprintf(stderr,"%s: %d: exit: Illegal number: %s\n", info->prog_name, info->line_count, info->args[1]);
 				info->status = 2;
 				return (-1);
 			}
