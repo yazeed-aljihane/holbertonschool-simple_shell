@@ -12,8 +12,8 @@ int check_builtins(info_t *info)
 
 	if (strcmp(info->args[0], "exit") == 0)
 	{
-		free_info(info);
-		exit(info->status);
+		if (shell_exit(info) == -1)
+			return (1);
 	}
 
 	if (strcmp(info->args[0], "env") == 0)
