@@ -11,9 +11,9 @@ int main(int ac, char **av, char **env)
 {
 	info_t info = {NULL, NULL, NULL, 0, NULL, 0, NULL};
 	ssize_t nread;
+
 	info.env = env;
 	info.prog_name = av[0];
-
 	(void)ac;
 	while (1)
 	{
