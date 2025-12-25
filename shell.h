@@ -24,5 +24,6 @@ void execute_cmd(info_t *info);
 int check_builtins(info_t *info);
 void free_info(info_t *info);
 int shell_exit(info_t *info);
+int _atoi(char *s);
 
 #endif /*SHEEL_H*/

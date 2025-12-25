@@ -23,7 +23,7 @@ int shell_exit(info_t *info)
 				return (-1);
 			}
 		}
-		exit_num = atoi(info->args[1]);
+		exit_num = _atoi(info->args[1]);
 		free_info(info);
 		exit(exit_num);
 	}
