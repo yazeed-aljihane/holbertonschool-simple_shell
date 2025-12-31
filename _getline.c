@@ -66,6 +66,8 @@ char *_getline(void)
 void *_realloc(void *ptr, size_t old_size, size_t new_size)
 {
 	void *new_ptr; /* Pointer to the new memory block */
+	char *old_ptr, *n_ptr; /* Character pointers for copying */
+	size_t i;
 
 	if (new_size == old_size)
 		return (ptr);
@@ -83,11 +85,15 @@ void *_realloc(void *ptr, size_t old_size, size_t new_size)
 
 	if (ptr != NULL)
 	{
-		/* Copy the data from the old block to the new block */
-		memcpy(new_ptr, ptr, old_size < new_size ? old_size : new_size);
+		old_ptr = (char *)ptr;
+		n_ptr = (char *)new_ptr;
+
+		if (new_size < old_size)
+			old_size = new_size;
+		for (i = 0; i < old_size; i++)
+			n_ptr[i] = old_ptr[i];
 		free(ptr);
 	}
-
 	return (new_ptr);
 }
 
