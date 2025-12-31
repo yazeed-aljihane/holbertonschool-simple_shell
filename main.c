@@ -20,12 +20,12 @@ int main(int ac, char **av, char **env)
 	{
 		info.line_count++;
 		if (isatty(STDIN_FILENO))
-			write(1, "($) ", 4);
+			asm_puts("$ ");
 		nread = read_input(&info);
 		if (nread == -1)
 		{
 			if (isatty(STDIN_FILENO))
-				write(1, "\n", 1);
+				asm_puts("\n");
 			break;
 		}
 		if (info.line && *info.line)
