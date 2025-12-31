@@ -17,6 +17,12 @@ typedef struct shell_info
 	char **env;
 } info_t;
 
+/* Assembly functions */
+long int asm_puts(char *str);
+long int puts_linux(char *str);
+long int puts_mac(char *str);
+
+/* Function prototypes */
 ssize_t read_input(info_t *info);
 void parse_input(info_t *info);
 int find_path(info_t *info);
@@ -24,11 +30,20 @@ void execute_cmd(info_t *info);
 int check_builtins(info_t *info);
 void free_info(info_t *info);
 int shell_exit(info_t *info);
-int _atoi(char *s);
 void signal_handler(int signal);
 int set_env(info_t *info);
 int unset_env(info_t *info);
-char *_strdup(const char *str);
 void populate_env_list(info_t *info, char **env);
 void free_env(info_t *info);
+int is_delim(char c, char *delim);
+
+/* costim functions */
+char *_strdup(const char *str);
+char *_getline(void);
+int _atoi(char *s);
+char *_strtok(char *str, char *delim);
+
+
+
+
 #endif /*SHEEL_H*/
