@@ -42,6 +42,8 @@ char *_strdup(const char *str);
 char *_getline(void);
 int _atoi(char *s);
 char *_strtok(char *str, char *delim);
+int _strcmp(const char *s1, const char *s2);
+void *_realloc(void *ptr, size_t old_size, size_t new_size);
 
 
 

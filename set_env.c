@@ -9,8 +9,8 @@
 int set_env(info_t *info)
 {
 	int i, j;
-
 	char **tmp_env, *newelm, *val;
+
 	if (info->args[3] != NULL)
 	{
 		fprintf(stderr, "%s: %d: %s: too many arguments\n",
