@@ -9,18 +9,23 @@
  */
 ssize_t read_input(info_t *info)
 {
-	ssize_t nread;
+	ssize_t nread = 0;
 	char *buffer = NULL;
-	size_t  len = 0;
 
-	nread = getline(&buffer, &len, stdin);
-	if (nread == -1)
-	{
-		free(buffer);
+	buffer = _getline();
+
+	if (!buffer)
 		return (-1);
-	}
-	if (buffer[nread - 1] == '\n')
+
+	while (buffer[nread])
+		nread++;
+
+	if (nread > 0 && buffer[nread - 1] == '\n')
+	{
 		buffer[nread - 1] = '\0';
+		nread--;
+	}
+
 	info->line = buffer;
 	return (nread);
 }
@@ -73,7 +78,7 @@ int find_path(info_t *info)
 	path_copy = strdup(info->env[i] + 5);
 	if (!path_copy)
 		return (-1);
-	token = strtok(path_copy, ":");
+	token = _strtok(path_copy, ":");
 	while (token)
 	{
 		snprintf(full_path, sizeof(full_path), "%s/%s", token, info->args[0]);
@@ -83,7 +88,7 @@ int find_path(info_t *info)
 			free(path_copy);
 			return (info->path ? 0 : -1);
 		}
-		token = strtok(NULL, ":");
+		token = _strtok(NULL, ":");
 	}
 	free(path_copy);
 	return (-1);
