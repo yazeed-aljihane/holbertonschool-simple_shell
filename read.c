@@ -45,7 +45,7 @@ void parse_input(info_t *info)
 		return;
 	for (i = 0; i < 64; i++)
 	info->args[i] = NULL;
-	
+
 	i = 0;
 	token = strtok(info->line, " \t\n");
 	while (token != NULL && i < 63)
