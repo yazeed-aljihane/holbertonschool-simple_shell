@@ -1,7 +1,5 @@
 #include "shell.h"
 
-
-
 /**
  * set_env - sets or updates an environment variable
  * @info: the parameter struct
@@ -11,18 +9,19 @@
 int set_env(info_t *info)
 {
 	int i, j;
-	char **tmp_env, *newelm;
 
+	char **tmp_env, *newelm, *val;
 	if (info->args[3] != NULL)
 	{
-		fprintf(stderr, "%s: %d: %s: setenv: too many arguments\n",
+		fprintf(stderr, "%s: %d: %s: too many arguments\n",
 		info->prog_name, info->line_count, info->args[1]);
 		return (-1);
 	}
+	val = (info->args[2] != NULL) ? info->args[2] : "";
 
 	if (info->args[1] == NULL || info->args[2] == NULL)
 	{
-		fprintf(stderr, "%s: %d: %s: setenv: too few arguments\n",
+		fprintf(stderr, "%s: %d: %s: too few arguments\n",
 		info->prog_name, info->line_count, info->args[0]);
 		return (-1);
 	}
@@ -32,10 +31,10 @@ int set_env(info_t *info)
 	{
 		if (strncmp(info->env[i], info->args[1], j) == 0 && info->env[i][j] == '=')
 		{
-		newelm = malloc(strlen(info->args[1]) + strlen(info->args[2]) + 2);
+		newelm = malloc(strlen(info->args[1]) + strlen(val) + 2);
 		if (newelm == NULL)
 			return (-1);
-		sprintf(newelm, "%s=%s", info->args[1], info->args[2]);
+		sprintf(newelm, "%s=%s", info->args[1], val);
 		free(info->env[i]);
 		info->env[i] = newelm;
 		return (0);
@@ -51,8 +50,8 @@ int set_env(info_t *info)
 	for (j = 0; j < i; j++)
 		tmp_env[j] = info->env[j];
 
-	newelm = malloc(strlen(info->args[1]) + strlen(info->args[2]) + 2);
-	sprintf(newelm, "%s=%s", info->args[1], info->args[2]);
+	newelm = malloc(strlen(info->args[1]) + strlen(val) + 2);
+	sprintf(newelm, "%s=%s", info->args[1], val);
 	tmp_env[i] = newelm;
 	tmp_env[i + 1] = NULL;
 	free(info->env);
@@ -74,13 +73,13 @@ int unset_env(info_t *info)
 
 	if (info->args[3] != NULL)
 	{
-		fprintf(stderr, "%s: %d: %s: unsetenv: too many arguments\n",
+		fprintf(stderr, "%s: %d: %s: too many arguments\n",
 		info->prog_name, info->line_count, info->args[0]);
 		return (-1);
 	}
 	if (info->args[1] == NULL)
 	{
-		fprintf(stderr, "%s: %d: %s: unsetenv: too few arguments\n",
+		fprintf(stderr, "%s: %d: %s: too few arguments\n",
 		info->prog_name, info->line_count, info->args[0]);
 		return (-1);
 	}

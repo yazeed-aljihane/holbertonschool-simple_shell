@@ -12,8 +12,8 @@ int check_builtins(info_t *info)
 
 	if (strcmp(info->args[0], "exit") == 0)
 	{
-		if (shell_exit(info) == -1)
-			return (1);
+		shell_exit(info);
+		return (1);
 	}
 
 	if (strcmp(info->args[0], "env") == 0)
@@ -21,8 +21,8 @@ int check_builtins(info_t *info)
 		/* Print all environment variables */
 		for (i = 0; info->env[i]; i++)
 		{
-			write(STDOUT_FILENO, info->env[i], strlen(info->env[i]));
-			write(STDOUT_FILENO, "\n", 1);
+			asm_puts(info->env[i]);
+			asm_puts("\n");
 		}
 		info->status = 0; /* Success */
 		return (1);
