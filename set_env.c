@@ -15,7 +15,7 @@ int set_env(info_t *info)
 	}
 	val = (info->args[2] != NULL) ? info->args[2] : "";
 
-	if (info->args[1] == NULL)
+	if (info->args[1] == NULL || info->args[2] == NULL)
 	{
 		fprintf(stderr, "%s: %d: %s: setenv: too few arguments\n",
 		info->prog_name, info->line_count, info->args[0]);

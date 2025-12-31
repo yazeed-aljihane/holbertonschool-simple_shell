@@ -35,7 +35,7 @@ void parse_input(info_t *info)
 	int i = 0;
 	char *token;
 
-	info->args = malloc(sizeof(char *) * 64);
+	info->args = calloc(64, sizeof(char *));
 	if (info->args == NULL)
 		return;
 	token = strtok(info->line, " \t\n");
