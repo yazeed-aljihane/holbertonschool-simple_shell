@@ -47,12 +47,12 @@ void parse_input(info_t *info)
 	info->args[i] = NULL;
 
 	i = 0;
-	token = strtok(info->line, " \t\n");
+	token = _strtok(info->line, " \t\n");
 	while (token != NULL && i < 63)
 	{
 		info->args[i] = token;
 		i++;
-		token = strtok(NULL, " \t\n");
+		token = _strtok(NULL, " \t\n");
 	}
 	info->args[i] = NULL;
 }
