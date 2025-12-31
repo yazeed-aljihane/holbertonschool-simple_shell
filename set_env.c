@@ -2,11 +2,17 @@
 
 
 
-
+/**
+ * set_env - sets or updates an environment variable
+ * @info: the parameter struct
+ *
+ * Return: 0 on success, -1 on error
+ */
 int set_env(info_t *info)
 {
 	int i, j;
 	char **tmp_env, *newelm;
+
 	if (info->args[3] != NULL)
 	{
 		fprintf(stderr, "%s: %d: %s: setenv: too many arguments\n",
@@ -32,13 +38,13 @@ int set_env(info_t *info)
 		sprintf(newelm, "%s=%s", info->args[1], info->args[2]);
 		free(info->env[i]);
 		info->env[i] = newelm;
-		return(0);
+		return (0);
 		}
 	}
 	for (i = 0; info->env[i] != NULL; i++)
 		;
 
-	tmp_env = malloc((i + 2) * sizeof(char*));
+	tmp_env = malloc((i + 2) * sizeof(char *));
 	if (tmp_env == NULL)
 		return (-1);
 
@@ -56,7 +62,12 @@ int set_env(info_t *info)
 
 
 
-
+/**
+ * unset_env - removes an environment variable
+ * @info: the parameter struct
+ *
+ * Return: 0 on success, -1 on error
+ */
 int unset_env(info_t *info)
 {
 	int i, j, k;
@@ -84,27 +95,32 @@ int unset_env(info_t *info)
 			{
 				info->env[k] = info->env[k + 1];
 			}
-			return(0);
+			return (0);
 		}
 	}
 return (0);
 }
 
 
-
+/**
+ * free_env - frees the environment variable list
+ * @info: the parameter struct
+ *
+ * Return: void
+ */
 void free_env(info_t *info)
 {
-    int i;
+	int i;
 
-    if (info->env == NULL)
-        return;
+	if (info->env == NULL)
+		return;
 
-    for (i = 0; info->env[i] != NULL; i++)
-    {
-        free(info->env[i]);
-    }
+	for (i = 0; info->env[i] != NULL; i++)
+	{
+		free(info->env[i]);
+	}
 
-    free(info->env);
+	free(info->env);
 
-    info->env = NULL;
+	info->env = NULL;
 }
