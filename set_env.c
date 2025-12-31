@@ -9,7 +9,7 @@ int set_env(info_t *info)
 	char **tmp_env, *newelm, *val;
 	if (info->args[3] != NULL)
 	{
-		fprintf(stderr, "%s: %d: %s: setenv: too many arguments\n",
+		fprintf(stderr, "%s: %d: %s: too many arguments\n",
 		info->prog_name, info->line_count, info->args[1]);
 		return (-1);
 	}
@@ -17,7 +17,7 @@ int set_env(info_t *info)
 
 	if (info->args[1] == NULL || info->args[2] == NULL)
 	{
-		fprintf(stderr, "%s: %d: %s: setenv: too few arguments\n",
+		fprintf(stderr, "%s: %d: %s: too few arguments\n",
 		info->prog_name, info->line_count, info->args[0]);
 		return (-1);
 	}
@@ -64,13 +64,13 @@ int unset_env(info_t *info)
 
 	if (info->args[3] != NULL)
 	{
-		fprintf(stderr, "%s: %d: %s: unsetenv: too many arguments\n",
+		fprintf(stderr, "%s: %d: %s: too many arguments\n",
 		info->prog_name, info->line_count, info->args[0]);
 		return (-1);
 	}
 	if (info->args[1] == NULL)
 	{
-		fprintf(stderr, "%s: %d: %s: unsetenv: too few arguments\n",
+		fprintf(stderr, "%s: %d: %s: too few arguments\n",
 		info->prog_name, info->line_count, info->args[0]);
 		return (-1);
 	}
