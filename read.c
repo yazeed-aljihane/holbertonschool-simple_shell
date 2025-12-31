@@ -72,14 +72,14 @@ int find_path(info_t *info)
 	if (info->args[0][0] == '/' || info->args[0][0] == '.')
 	{
 		if (access(info->args[0], X_OK) == 0)
-			info->path = strdup(info->args[0]);
+			info->path = _strdup(info->args[0]);
 		return (info->path ? 0 : -1);
 	}
 	while (info->env[i] && strncmp(info->env[i], textpath, 5) != 0)
 		i++;
 	if (!info->env[i])
 		return (-1);
-	path_copy = strdup(info->env[i] + 5);
+	path_copy = _strdup(info->env[i] + 5);
 	if (!path_copy)
 		return (-1);
 	token = _strtok(path_copy, ":");
@@ -88,7 +88,7 @@ int find_path(info_t *info)
 		snprintf(full_path, sizeof(full_path), "%s/%s", token, info->args[0]);
 		if (access(full_path, X_OK) == 0)
 		{
-			info->path = strdup(full_path);
+			info->path = _strdup(full_path);
 			free(path_copy);
 			return (info->path ? 0 : -1);
 		}

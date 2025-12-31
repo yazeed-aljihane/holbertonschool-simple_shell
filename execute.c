@@ -10,13 +10,13 @@ int check_builtins(info_t *info)
 {
 	int i; /* Loop variable */
 
-	if (strcmp(info->args[0], "exit") == 0)
+	if (_strcmp(info->args[0], "exit") == 0)
 	{
 		shell_exit(info);
 		return (1);
 	}
 
-	if (strcmp(info->args[0], "env") == 0)
+	if (_strcmp(info->args[0], "env") == 0)
 	{
 		/* Print all environment variables */
 		for (i = 0; info->env[i]; i++)
@@ -28,13 +28,13 @@ int check_builtins(info_t *info)
 		return (1);
 	}
 
-	if (strcmp(info->args[0], "setenv") == 0)
+	if (_strcmp(info->args[0], "setenv") == 0)
 	{
 		set_env(info);
 		return (1);
 
 	}
-	if (strcmp(info->args[0], "unsetenv") == 0)
+	if (_strcmp(info->args[0], "unsetenv") == 0)
 	{
 	unset_env(info);
 	return (1);
