@@ -57,7 +57,7 @@ void parse_input(info_t *info)
 int find_path(info_t *info)
 {
 	int i = 0;
-	char *textpath = "PATH=", *tmp_buffer = NULL, *path_copy, *token;
+	char *textpath = "PATH=", *path_copy, *token;
 	char full_path[1024];
 
 	if (info->args[0][0] == '/' || info->args[0][0] == '.')

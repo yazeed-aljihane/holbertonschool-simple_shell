@@ -27,6 +27,19 @@ int check_builtins(info_t *info)
 		info->status = 0; /* Success */
 		return (1);
 	}
+
+	if (strcmp(info->args[0], "setenv") == 0)
+	{
+		set_env(info);
+		return (1);
+
+	}
+	if (strcmp(info->args[0], "unsetenv") == 0)
+	{
+	unset_env(info);
+	return (1);
+	}
+
 	return (0); /* Not a builtin */
 }
 

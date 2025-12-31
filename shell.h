@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
-
+#include <signal.h>
 typedef struct shell_info
 {
 	char *line;
@@ -25,5 +25,10 @@ int check_builtins(info_t *info);
 void free_info(info_t *info);
 int shell_exit(info_t *info);
 int _atoi(char *s);
-
+void signal_handler(int signal);
+int set_env(info_t *info);
+int unset_env(info_t *info);
+char *_strdup(const char *str);
+void populate_env_list(info_t *info, char **env);
+void free_env(info_t *info);
 #endif /*SHEEL_H*/

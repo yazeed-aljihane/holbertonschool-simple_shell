@@ -1,0 +1,89 @@
+.TH SIMPLE_SHELL 1 "DECEMBER 2025" "Holberton School" "Simple Shell Manual"
+
+.SH NAME
+simple_shell (hsh) \- A Unix command-line interpreter based on the info_t structure.
+
+.SH SYNOPSIS
+.B ./hsh
+.br
+.B ./hsh
+[file]
+
+.SH DESCRIPTION
+.B simple_shell
+is a custom implementation of a shell that replicates the basic behavior of \fBsh\fR. It utilizes a central information structure (\fBinfo_t\fR) to manage the shell's state, memory, and environment.
+
+.SS INTERNAL ARCHITECTURE
+The shell operates in a continuous loop:
+.IP \(bu 2
+\fBInput\fR: Uses \fBread_input\fR to get strings via \fBgetline\fR.
+.IP \(bu 2
+\fBParsing\fR: \fBparse_input\fR tokenizes the line into an array of strings.
+.IP \(bu 2
+\fBLogic\fR: \fBcheck_builtins\fR determines if the command is internal.
+.IP \(bu 2
+\fBExecution\fR: \fBfind_path\fR resolves the PATH, and \fBexecute_cmd\fR forks and executes.
+.IP \(bu 2
+\fBCleanup\fR: \fBfree_info\fR ensures no memory leaks between cycles.
+
+.SH BUILT-IN COMMANDS
+The shell currently supports the following built-ins (you can add more to \fBcheck_builtins\fR):
+.TP
+.B exit
+Terminates the shell. Uses \fBinfo.status\fR for the return value.
+.TP
+.B env
+Prints the current environment using the \fBinfo.env\fR array.
+.TP
+.B setenv
+Initializes a new environment variable, or modifies an existing one.
+.TP
+.B unsetenv
+Removes an environment variable.
+
+.SH STRUCTURE (info_t)
+The entire shell state is encapsulated in:
+.nf
+    typedef struct shell_info {
+        char *line;        /* The raw input string */
+        char **args;       /* Tokenized command and arguments */
+        char *path;        /* Resolved executable path */
+        int status;        /* Last command exit status */
+        char *prog_name;   /* Name of the shell program */
+        int line_count;    /* Counter for error reporting */
+        char **env;        /* Array of environment variables */
+    } info_t;
+.fi
+
+.SH SIGNAL HANDLING
+The shell catches \fBSIGINT\fR (Ctrl+C) via \fBctrl_c.c\fR so that it does not terminate the shell but instead prints a new prompt.
+
+.SH FILES
+.TP
+.B main.c
+Entry point and the primary execution loop.
+.TP
+.B read.c / execute.c / memory.c
+Core logic for reading, running, and freeing resources.
+.TP
+.B 100-atoi.c
+Helper functions for string-to-integer conversions.
+
+.SH EXAMPLES
+To start the shell in interactive mode:
+.RS
+$ ./hsh
+.br
+($) /bin/ls
+.RE
+
+To use in non-interactive mode:
+.RS
+$ echo "/bin/ls" | ./hsh
+.RE
+
+.SH BUGS
+Report bugs to the AUTHORS file contributors.
+
+.SH AUTHOR
+Created by [Your Name/Partner Name].
