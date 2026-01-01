@@ -6,6 +6,17 @@
 #include <string.h>
 #include <sys/wait.h>
 #include <signal.h>
+
+/**
+ * struct shell_info - Structure to hold shell information
+ * @line: The input line from the user
+ * @args: The parsed arguments from the input line
+ * @path: The current working directory path
+ * @status: The exit status of the last command
+ * @prog_name: The name of the shell program
+ * @line_count: The line number in the input file
+ * @env: The environment variables
+ */
 typedef struct shell_info
 {
 	char *line;
