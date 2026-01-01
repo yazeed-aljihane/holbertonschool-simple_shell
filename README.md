@@ -86,6 +86,9 @@ $
 | `asm_puts.c` | Assembly optimized string output. |
 | `100-atoi.c` | String to integer conversion logic. |
 | `memory.c` | Memory reallocation and freeing functions. |
+| `read.c` | Handles input reading, argument parsing, and command path resolution. |
+| `exit.c` | Implements the exit built-in command with status code validation. |
+| `ctrl_c.c` | Signal handler for `SIGINT` (Ctrl+C) to prevent abrupt termination. |
 
 ## 🧪 Testing
 
