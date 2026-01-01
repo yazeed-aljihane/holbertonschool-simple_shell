@@ -47,6 +47,8 @@ int unset_env(info_t *info);
 void populate_env_list(info_t *info, char **env);
 void free_env(info_t *info);
 int is_delim(char c, char *delim);
+char *create_env_string(char *name, char *value);
+int _add_env_node(info_t *info, char *new_elm);
 
 /* costim functions */
 char *_strdup(const char *str);
